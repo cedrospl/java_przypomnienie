@@ -9,7 +9,7 @@ public class BaseTest {
     @Before
     public void setUp() {
         driver = new ChromeDriver();
-        driver.get("https://wp.pl");
+        driver.get("https://onet.pl");
         driver.manage().window().maximize();
     }
 
