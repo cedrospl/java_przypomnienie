@@ -1,9 +1,6 @@
 package main.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -55,28 +52,33 @@ public class HomePageOnet {
         return getLogoText();
     }
 
-    public void getArticleLinksOpenThemInDifferentTabsAndSaveLinkstoFile() throws IOException {
+    public void getArticleLinksOpenInTabsAndSavetoFile() throws IOException {
         System.out.println("Saving article links to the list");
-        List<WebElement> phraseSearch2 = driver.findElements(By.partialLinkText("ska"));
-        WebElement q;
-        String k;
+        /**
+         Change "ska" to whatever text you want to search it on www.onet.pl site
+         */
+        List<WebElement> searchByPhrase = driver.findElements(By.partialLinkText("ska"));
+        WebElement phraseSearch;
+        String singleArticle;
         List<String> articleLinks = new ArrayList<>();
-        for (WebElement webElement : phraseSearch2) {
-            q = webElement;
-            k = q.getAttribute("href");
-            articleLinks.add(k);
+        for (WebElement webElement : searchByPhrase) {
+            phraseSearch = webElement;
+            singleArticle = phraseSearch.getAttribute("href");
+            articleLinks.add(singleArticle);
         }
         System.out.println("Opening a new tab with the article link from the list");
         for (String articleLink : articleLinks) {
-            driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL + "t");
-            driver.get(String.valueOf(articleLink));
-
+            driver.switchTo().newWindow(WindowType.TAB);
+            driver.navigate().to(articleLink);
         }
-        System.out.println("Saving Article Links ");
-        Path dest = Paths.get("SavedArticleLinks.java"); // można też podać patha do innego folderu w projekcie
+        System.out.println("Saving Article Links");
+        /**
+         You can also put a path to other folder in the project to save a file
+         */
+        Path dest = Paths.get("SavedArticleLinks.csv");
         try {
-            Path p = Files.write(dest, articleLinks, StandardOpenOption.WRITE, StandardOpenOption.CREATE);
-            System.out.println("Saved file" + p.toAbsolutePath());
+            Path path = Files.write(dest, articleLinks, StandardOpenOption.WRITE, StandardOpenOption.CREATE);
+            System.out.println("Saved file" + path.toAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
         }
