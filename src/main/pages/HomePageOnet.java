@@ -57,6 +57,9 @@ public class HomePageOnet {
 
     public void getArticleLinksOpenThemInDifferentTabsAndSaveLinkstoFile() throws IOException {
         System.out.println("Saving article links to the list");
+        /**
+         Change "ska" to whatever text you want to search it on www.onet.pl site
+         */
         List<WebElement> phraseSearch2 = driver.findElements(By.partialLinkText("ska"));
         WebElement q;
         String k;
