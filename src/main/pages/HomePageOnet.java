@@ -58,12 +58,9 @@ public class HomePageOnet {
          Change "ska" to whatever text you want to search it on www.onet.pl site
          */
         List<WebElement> searchByPhrase = driver.findElements(By.partialLinkText("ska"));
-        WebElement phraseSearch;
-        String singleArticle;
         List<String> articleLinks = new ArrayList<>();
         for (WebElement webElement : searchByPhrase) {
-            phraseSearch = webElement;
-            singleArticle = phraseSearch.getAttribute("href");
+            String singleArticle = webElement.getAttribute("href");
             articleLinks.add(singleArticle);
         }
         System.out.println("Opening a new tab with the article link from the list");
