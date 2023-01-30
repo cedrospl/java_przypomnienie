@@ -52,12 +52,9 @@ public class HomePageOnet {
         return getLogoText();
     }
 
-    public void getArticleLinksOpenInTabsAndSavetoFile() throws IOException {
+    public void getArticleLinksOpenInTabsAndSaveToFile(String searchPhrase) throws IOException {
         System.out.println("Saving article links to the list");
-        /**
-         Change "ska" to whatever text you want to search it on www.onet.pl site
-         */
-        List<WebElement> searchByPhrase = driver.findElements(By.partialLinkText("ska"));
+        List<WebElement> searchByPhrase = driver.findElements(By.partialLinkText(searchPhrase));
         List<String> articleLinks = new ArrayList<>();
         for (WebElement webElement : searchByPhrase) {
             String singleArticle = webElement.getAttribute("href");
